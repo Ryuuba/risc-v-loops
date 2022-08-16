@@ -18,5 +18,5 @@ La siguiente tabla ilustra la aplicación de los tres pasos anteriores.
 |       |                                   | `         addi s2, zero, 0`    |
 | 2     | `do`                              |                                |
 | 3     | `{`                               |                                |
-| 4     | `accum++`                         | `do1:    addi accum, accum, 1` |
-| 5     | `} while (accum < max);`          | `        blt  accum, max, do1` |
+| 4     | `accum++`                         | `do1:    addi s1, s1, 1`       |
+| 5     | `} while (accum < max);`          | `        blt  s1, s2, do1`     |
