@@ -1,5 +1,7 @@
 {
     "files.associations": {
         "ostream": "cpp"
-    }
+    },
+    "cSpell.enabled": true,
+    "cSpell.language": "es"
 }
