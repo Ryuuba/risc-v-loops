@@ -74,7 +74,7 @@ El azúcar sintáctico (*syntactic sugar*) es un término que denota aquellas co
 | 2     | `while (accum < max)` |                                              |
 | 3     | `accum++;`            |                                              |
 
-Las instrucciones presentes en la columna con encabezado *while* son equivalentes a la única línea de código de la columna con encabezado *for*, de ahí que el bucle *for* sea considerado como azúcar sintáctico.
+Las instrucciones presentes en la columna con encabezado *while* son equivalentes a la única línea de código de la columna con encabezado *for*, de ahí que el bucle *for* sea considerado como azúcar sintáctico porque hace en una línea lo que el bucle *while* hace en tres.
 
 En lenguaje ensamblador, el código que resulta de la compilación de un bucle *for* es muy similar al que se obtiene de compilar un bucle *while* porque el bucle *for* azúcar sintáctico derivada de bucle *while*, tal como se observa en la tabla siguiente.
 
@@ -89,10 +89,10 @@ La diferencia entre ambos códigos es el uso de la etiqueta `wh1` y `for1`; la p
 
 La compilación de un bucle *for* puede hacerse de la siguiente manera:
 
-1. Compilación de la expresión de inicialización del bucle. En esta parte se traduce la expresión de inicialización. En el ejemplo manejado en este apartado, esta expresión es `int accum = 0`.
-2. Compilación del conjunto de instrucciones del bucle.
-3. Compilación de la expresión de bucle.
-4. Compilación de la expresión de condición.
+1. Compilación de la expresión de inicialización del bucle. En esta parte se traduce la expresión de inicialización. En el ejemplo manejado en este apartado, esta expresión es `int accum = 0`. Después de la inicialización, debe escribirse un salto incondicional hacia las instrucciones que corresponde a la compilación de la expresión de la condición.
+2. Compilación del conjunto de instrucciones del bucle. Es el conjunto de instrucciones que deben repetirse si la condición de iteración es verdadera. Se encuentran después de la línea donde se declara el bucle *for*. En el ejemplo en cuestión, este conjunto es nulo, de ahí que el bucle *for* termine con un punto y coma.
+3. Compilación de la expresión de bucle. Corresponde a la tercera expresión del bucle *for*. En este ejemplo, la expresión del bucle es `accum ++`. Esta expresión se compila enseguida del conjunto de instrucciones del bucle y antes de la expresión de condición.
+4. Compilación de la expresión de condición. Esta expresión se traduce de tal manera que se garantice que ocurrirá un salto hacia la primera instrucción del bucle si es que la condición se cumple. En lenguaje ensamblador, la primera instrucción del bucle siempre es la que viene después del salto incondicional. En este ejemplo, la primera instrucción del bucle es la que corresponde a la compilación de la expresión del bucle porque el conjunto de instrucciones es vacío.
 
 | Línea | for                                          | RISC-V                |
 | ----- | -------------------------------------------- | --------------------- |
@@ -100,3 +100,4 @@ La compilación de un bucle *for* puede hacerse de la siguiente manera:
 | 2     |                                              | `j for1`              |
 | 3     |                                              | `L1: addi s1, s1, 1`  |
 | 4     |                                              | `for1: blt s1, s2, L1`|
+
